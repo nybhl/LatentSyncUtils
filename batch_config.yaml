@@ -1,0 +1,62 @@
+# Batch Inference Configuration for LatentSync
+# This file contains common settings for batch processing
+
+# Input/Output Directories
+directories:
+  video_dir: "data/Video"
+  audio_dir: "data/Audio/spk_ganyu"
+  output_dir: "output/lipsync"
+  temp_dir: "temp"
+
+# Model Configuration
+model:
+  config_path: "configs/unet/stage2_512.yaml"
+  ckpt_path: "checkpoints/latentsync_unet.pt"
+
+# Inference Parameters
+inference:
+  inference_steps: 20          # Range: 20-50, higher = better quality but slower
+  guidance_scale: 1.5          # Range: 1.0-3.0, higher = better lip sync but may cause distortion
+  enable_deepcache: true       # Enable for faster inference
+  random_seed: null            # Set to integer for reproducible results, null for random
+
+# Batch Processing Settings
+batch:
+  max_combinations: null       # Maximum combinations to process, null for all
+  test_mode: false             # Run with fewer steps for testing
+  resume_from: null            # Resume from specific combination (not implemented yet)
+
+# Quality Presets
+presets:
+  fast:
+    inference_steps: 15
+    guidance_scale: 1.0
+    description: "Fastest processing, lower quality"
+  
+  standard:
+    inference_steps: 20
+    guidance_scale: 1.5
+    description: "Balanced speed and quality"
+  
+  high_quality:
+    inference_steps: 30
+    guidance_scale: 2.0
+    description: "Higher quality, slower processing"
+  
+  best_quality:
+    inference_steps: 40
+    guidance_scale: 2.5
+    description: "Best quality, slowest processing"
+
+# File Patterns
+file_patterns:
+  video_extensions: ["*.mp4"]
+  audio_extensions: ["*.wav"]
+  output_format: "{video_name}_{audio_name}_{timestamp}.mp4"
+
+# Performance Monitoring
+monitoring:
+  log_progress: true
+  estimate_time: true
+  show_gpu_usage: true
+  save_logs: true 
