@@ -86,7 +86,7 @@ The shell script supports the same options:
 Process only 5 combinations to test the setup:
 
 ```bash
-./batch_inference.sh --max_combinations 5 --seed 0
+./batch_inference.sh --max_combinations 5 --random_seed 0
 ```
 
 ### Example 2: High Quality Generation
